@@ -1,0 +1,6 @@
+exports/
+.venv/
+__pycache__/
+*.py[cod]
+/data/online_retail_II.csv
+/data/online_retail_II.xlsx

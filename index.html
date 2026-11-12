@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apache Iceberg — Présentation</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="deck-shell">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark">❄️</span>
+          <div>
+            <small>Projet de recherche</small>
+            <strong>Apache Iceberg + Lakehouse</strong>
+          </div>
+        </div>
+        <div class="status">
+          <span id="slideCounter">1 / 18</span>
+          <div class="progress"><span id="progressBar"></span></div>
+          <button class="utility-btn" id="overviewBtn" type="button" aria-label="Afficher l’aperçu des diapositives" title="Aperçu des diapositives">▦</button>
+          <button class="utility-btn" id="fullscreenBtn" type="button" aria-label="Activer le plein écran" title="Plein écran">⛶</button>
+          <button class="utility-btn" id="printBtn" type="button" aria-label="Imprimer ou enregistrer en PDF" title="Imprimer / PDF">⎙</button>
+        </div>
+      </header>
+
+      <main id="slides" aria-live="polite">
+        <section class="slide active">
+          <div class="slide-inner title-slide">
+            <div class="eyebrow">Université / Projet Data Engineering</div>
+            <h1>Apache Iceberg</h1>
+            <p class="subtitle">Vers un architecture Lakehouse moderne pour l’analyse des données e-commerce</p>
+            <div class="title-grid">
+              <div class="chip">Lakehouse</div>
+              <div class="chip">Spark</div>
+              <div class="chip">MinIO</div>
+              <div class="chip">Iceberg</div>
+            </div>
+            <div class="footer-note">Projet : Apache Iceberg + Data Engineering + Lakehouse</div>
+          </div>
+        </section>
+
+        <section class="slide">
+          <div class="slide-inner">
+            <div class="section-tag">Partie 1</div>
+            <h2>Contexte et problème</h2>
+            <div class="two-col">
+              <div class="panel danger">
+                <h3>Problème du Data Lake classique</h3>
+                <ul>
+                  <li>Gestion des fichiers Parquet peu structurée</li>
+                  <li>DELETE / UPDATE complexes</li>
+                  <li>Historique des versions difficile</li>
+                  <li>Schema change coûteux et risqué</li>
+                  <li>Récupération après erreur limitée</li>
+                </ul>
+              </div>
+              <div class="panel info">
+                <h3>Conséquences</h3>
+                <ul>
+                  <li>Moins de fiabilité analytique</li>
+                  <li>Peu de reproductibilité</li>
+                  <li>Contrôle des données faible</li>
+                  <li>Défis pour la gouvernance</li>
+                </ul>
+              </div>
+            </div>
+            <div class="notes-box">
+              <strong>Note :</strong> Les data lakes modernes offrent flexibilité, mais manquent souvent de gestion structurée des tables et des versions.
+            </div>
+          </div>
+        </section>
+
+        <section class="slide">
+          <div class="slide-inner">
+            <div class="section-tag">Partie 1</div>
+            <h2>Qu’est-ce qu’un Lakehouse ?</h2>
+            <div class="three-col">
+              <div class="panel">
+                <h3>Data Lake</h3>
+                <p>Scalable, économique, orienté stockage objet.</p>
+              </div>
+              <div class="panel active-panel">
+                <h3>Data Warehouse</h3>
+                <p>Performance, transactions, gouvernance, BI.</p>
+              </div>
+              <div class="panel">
+                <h3>Lakehouse</h3>
+                <p>Combinaison de flexibilité du lake et de robustesse du warehouse.</p>
+              </div>
+            </div>
+            <div class="arch-box">
+              <span>Stockage objet</span>
+              <span>→</span>
+              <span>Gestion des tables</span>
+              <span>→</span>
+              <span>Analyse</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="slide">
+          <div class="slide-inner">
+            <div class="section-tag">Partie 2</div>
+            <h2>Pourquoi Apache Iceberg ?</h2>
+            <div class="text-block">
+              Apache Iceberg est un <strong>format de table open source</strong> conçu pour gérer des données stockées dans un système de fichiers objet comme S3, GCS ou MinIO.
+            </div>
+            <div class="compare-grid">
+              <div>
+                <h3>Sans Iceberg</h3>
+                <ul>
+                  <li>Fichiers parquet dispersés</li>
+                  <li>Pas de versioning table</li>
+                  <li>Mise à jour coûteuse</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Avec Iceberg</h3>
+                <ul>
+                  <li>Métadonnées centralisées</li>
+                  <li>Snapshots transactionnels</li>
+                  <li>Time Travel et rollback</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="slide">
+          <div class="slide-inner">
+            <div class="section-tag">Partie 2</div>
+            <h2>Architecture Apache Iceberg</h2>
+            <div class="diagram">
+              <div class="node">Apache Iceberg</div>
+              <div class="line"></div>
+              <div class="subnodes">
+                <span>Métadonnées</span>
+                <span>Snapshots</span>
+                <span>Schema</span>
+              </div>
+              <div class="line"></div>
+              <div class="node storage">MinIO / S3</div>
+            </div>
+            <div class="notes-box">
+              <strong>Idée clé :</strong> Iceberg ajoute une couche de gestion de table sur le stockage objet, sans perdre la simplicité du lake.
+            </div>
+          </div>
+        </section>
+
+        <section class="slide">
+          <div class="slide-inner">
+            <div class="section-tag">Partie 2</div>
+            <h2>Fonctionnalités clés</h2>
+            <div class="feature-list">
+              <div class="feature-item"><strong>Snapshots</strong> : états immuables et reproductibles</div>
+              <div class="feature-item"><strong>Time Travel</strong> : lecture d’une version antérieure</div>
+              <div class="feature-item"><strong>Rollback</strong> : restauration d’un snapshot</div>
+              <div class="feature-item"><strong>Schema Evolution</strong> : ajout/suppression de colonnes</div>
+              <div class="feature-item"><strong>ACID</strong> : opérations plus fiables</div>
+              <div class="feature-item"><strong>Partitioning</strong> : performances analytiques</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="slide">
+          <div class="slide-inner">
+            <div class="section-tag">Partie 2</div>
+            <h2>Snapshots et versioning</h2>
+            <div class="timeline">
+              <div class="event">
+                <span class="time">T0</span>
+                <div>Table initiale</div>
+              </div>
+              <div class="event">
+                <span class="time">T1</span>
+                <div>INSERT de nouvelles lignes</div>
+              </div>
+              <div class="event">
+                <span class="time">T2</span>
+                <div>UPDATE / DELETE logique</div>
+              </div>
+              <div class="event">
+                <span class="time">T3</span>
+                <div>Nouveau snapshot déclaré</div>
+              </div>
+            </div>
+            <div class="notes-box">
+              Une table Iceberg ne change pas par écriture “en place” ; elle produit de nouveaux snapshots explicites.
+            </div>
+          </div>
+        </section>
+
+        <section class="slide">
+          <div class="slide-inner">
+            <div class="section-tag">Partie 2</div>
+            <h2>Time Travel</h2>
+            <div class="callout gradient-blue">
+              <p>Le système permet de consulter une version précédemment validée sans modifier l’état actuel de la table.</p>
+            </div>
+            <div class="code-box">
+              SELECT * FROM local.sales<br>
+              VERSION AS OF 1234567890123;
+            </div>
+            <div class="notes-box">
+              Utile pour l’audit, le debug, l’analyse historique et la comparaison des résultats entre versions.
+            </div>
+          </div>
+        </section>
+
+        <section class="slide">
+          <div class="slide-inner">
+            <div class="section-tag">Partie 2</div>
+            <h2>Rollback</h2>
+            <div class="two-col">
+              <div class="panel warning">
+                <h3>Erreur détectée</h3>
+                <p>Suppression ou UPDATE incorrect.</p>
+              </div>
+              <div class="panel success">
+                <h3>Action</h3>
+                <p>Retour au snapshot antérieur et restauration du bon état.</p>
+              </div>
+            </div>
+            <div class="code-box">
+              CALL local.system.rollback_to_snapshot('table_name', 'snapshot_id');
+            </div>
+          </div>
+        </section>
+
+        <section class="slide">
+          <div class="slide-inner">
+            <div class="section-tag">Partie 2</div>
+            <h2>Schema Evolution</h2>
+            <div class="schema-card">
+              <div class="old-schema">InvoiceID, CustomerID, Country</div>
+              <div class="arrow">→</div>
+              <div class="new-schema">InvoiceID, CustomerID, Country, Region, Channel</div>
+            </div>
+            <ul class="simple-list">
+              <li>Ajout de colonnes sans reconstruire toute la table</li>
+              <li>Compatibilité avec les données existantes</li>
+              <li>Evolution progressive des modèles analytiques</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="slide">
+          <div class="slide-inner">
+            <div class="section-tag">Partie 3</div>
+            <h2>Architecture du projet</h2>
+            <div class="stack-graphic">
+              <div>UCI Online Retail II</div>
+              <div>↓</div>
+              <div>Bronze</div>
+              <div>↓</div>
+              <div>Silver</div>
+              <div>↓</div>
+              <div>Gold</div>
+              <div>↓</div>
+              <div>Apache Iceberg</div>
+              <div>↓</div>
+              <div>MinIO</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="slide">
+          <div class="slide-inner">
+            <div class="section-tag">Partie 3</div>
+            <h2>Medallion Architecture</h2>
+            <div class="three-col">
+              <div class="panel bronze">
+                <h3>Bronze</h3>
+                <p>Données brutes et non nettoyées</p>
+              </div>
+              <div class="panel silver">
+                <h3>Silver</h3>
+                <p>Nettoyage, standardisation, transformations</p>
+              </div>
+              <div class="panel gold">
+                <h3>Gold</h3>
+                <p>Tables agrégées pour la reporting et l’analyse</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="slide">
+          <div class="slide-inner">
+            <div class="section-tag">Partie 3</div>
+            <h2>Pile technologique</h2>
+            <table class="tech-table">
+              <tr><th>Technologie</th><th>Rôle</th></tr>
+              <tr><td>Apache Iceberg</td><td>Format de table et métadonnées</td></tr>
+              <tr><td>Apache Spark</td><td>Traitement distribué</td></tr>
+              <tr><td>MinIO</td><td>Stockage objet compatible S3</td></tr>
+              <tr><td>Docker</td><td>Environnement reproductible</td></tr>
+              <tr><td>Streamlit</td><td>Visualisation interactive</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section class="slide">
+          <div class="slide-inner">
+            <div class="section-tag">Partie 3</div>
+            <h2>Exemple de configuration Spark + Iceberg</h2>
+            <pre class="code-pre">spark = (
+  SparkSession.builder
+    .config("spark.sql.extensions", "org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions")
+    .config("spark.sql.catalog.local", "org.apache.iceberg.spark.SparkCatalog")
+    .config("spark.sql.catalog.local.type", "hadoop")
+    .config("spark.sql.catalog.local.warehouse", "s3a://warehouse")
+    .config("spark.hadoop.fs.s3a.endpoint", "http://minio:9000")
+    .getOrCreate()
+)</pre>
+            <div class="notes-box">
+              Cette configuration montre la séparation claire entre moteur d’exécution (Spark), table format (Iceberg) et stockage objet (MinIO).
+            </div>
+          </div>
+        </section>
+
+        <section class="slide">
+          <div class="slide-inner">
+            <div class="section-tag">Partie 3</div>
+            <h2>Démonstration technique</h2>
+            <div class="bullet-list">
+              <div>✓ Création d’une table Iceberg</div>
+              <div>✓ Insertion de lignes</div>
+              <div>✓ Mise à jour de données</div>
+              <div>✓ Suppression logique</div>
+              <div>✓ Visualisation des snapshots</div>
+              <div>✓ Time Travel et rollback</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="slide">
+          <div class="slide-inner">
+            <div class="section-tag">Partie 4</div>
+            <h2>Résultats obtenus</h2>
+            <div class="metrics">
+              <div class="metric">
+                <span class="big">1 067 371</span>
+                <small>lignes source</small>
+              </div>
+              <div class="metric">
+                <span class="big">1 033 029</span>
+                <small>lignes Silver</small>
+              </div>
+              <div class="metric">
+                <span class="big">43</span>
+                <small>pays</small>
+              </div>
+              <div class="metric">
+                <span class="big">25</span>
+                <small>mois</small>
+              </div>
+              <div class="metric">
+                <span class="big">4 778</span>
+                <small>produits</small>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="slide">
+          <div class="slide-inner">
+            <div class="section-tag">Partie 4</div>
+            <h2>Ce que le projet a démontré</h2>
+            <ul class="simple-list">
+              <li>La pertinence d’Iceberg pour les workloads analytiques modernes</li>
+              <li>L’intérêt d’un stockage objet avec une couche de métadonnées</li>
+              <li>La robustesse des snapshots et du versioning</li>
+              <li>La mise en œuvre d’une architecture Lakehouse en local</li>
+              <li>La capacité de restaurer des états antérieurs sans perte majeure</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="slide">
+          <div class="slide-inner">
+            <div class="section-tag">Partie 4</div>
+            <h2>Conclusion</h2>
+            <div class="callout gradient-purple">
+              <p>Apache Iceberg apporte la gestion structurée des tables à un stockage de type data lake, ce qui en fait un élément clé pour les architectures Lakehouse modernes.</p>
+            </div>
+            <div class="quote-box">
+              Le projet valide que les données peuvent rester flexibles dans le lake tout en bénéficiant des avantages du warehouse : fiabilité, historique, audit et récupération.
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <div id="overview" class="overview" aria-label="Aperçu des diapositives" hidden>
+        <div class="overview-header">
+          <h2>Sommaire des diapositives</h2>
+          <button id="closeOverviewBtn" class="utility-btn" type="button" aria-label="Fermer l’aperçu">×</button>
+        </div>
+        <div id="overviewGrid" class="overview-grid"></div>
+      </div>
+
+      <footer class="controls">
+        <button id="prevBtn" type="button" aria-label="Diapositive précédente" title="Précédent (←)">←</button>
+        <span class="keyboard-hint">Utilisez ← → pour naviguer · F pour plein écran · O pour l’aperçu</span>
+        <button id="nextBtn" type="button" aria-label="Diapositive suivante" title="Suivant (→)">→</button>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
