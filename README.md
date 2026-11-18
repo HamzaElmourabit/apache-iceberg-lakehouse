@@ -885,7 +885,7 @@ This project provides practical experience with:
 **Hamza Elmourabit**
 
 Big Data & Information Systems Engineering Student
-ENSA Berrechid, Morocco
+ENSA Berrechid
 
 Interested in:
 
