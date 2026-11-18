@@ -106,66 +106,19 @@ Iceberg therefore provides a reliable table abstraction while preserving the fle
 
 # 🏗️ Architecture
 
-```text
-                    ┌──────────────────────┐
-                    │ UCI Online Retail II │
-                    │   E-commerce Data    │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │    Apache Spark      │
-                    │ Ingestion & Processing│
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │   BRONZE LAYER       │
-                    │ Raw / Ingested Data  │
-                    └──────────┬───────────┘
-                               │
-                       Cleaning & Validation
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │   SILVER LAYER       │
-                    │ Cleaned / Transformed│
-                    └──────────┬───────────┘
-                               │
-                          Aggregations
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │    GOLD LAYER        │
-                    │ Analytical Data      │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │   Apache Iceberg     │
-                    │                      │
-                    │ Tables               │
-                    │ Metadata             │
-                    │ Snapshots             │
-                    │ Time Travel           │
-                    │ Rollback              │
-                    │ Schema Evolution      │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │        MinIO         │
-                    │ S3-Compatible Storage│
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │  Streamlit Dashboard │
-                    │ Analytics & Monitoring│
-                    └──────────────────────┘
-```
+The project follows a **Medallion Lakehouse architecture** in which Apache Spark handles ingestion and transformation, Apache Iceberg provides the table-management layer, and MinIO provides S3-compatible object storage.
 
----
+<p align="center">
+  <img
+    src="./images/architecture_lakehouse_iceberg_v3.png"
+    alt="Apache Iceberg Lakehouse Architecture"
+    width="100%"
+  />
+</p>
+
+<p align="center">
+  <i>End-to-end architecture: UCI Online Retail II → Spark → Bronze → Silver → Gold → Apache Iceberg → MinIO → Streamlit</i>
+</p>
 
 # 🔧 Technology Stack
 
