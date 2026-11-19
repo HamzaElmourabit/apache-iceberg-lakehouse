@@ -140,10 +140,6 @@ The following screenshots provide a visual overview of the project environment a
   <img src="images/Capture%20d'%C3%A9cran%202026-10-15%20100829.png" alt="Apache Iceberg project screenshot — October 15, 2026, 10:08" width="82%">
 </p>
 
-<p align="center">
-  <img src="images/architecture_lakehouse_iceberg_v3.png" alt="Apache Iceberg Lakehouse architecture" width="100%">
-</p>
-
 ### 📄 Project documents
 
 - [View the project report (PDF)](images/Rapport_HamzaElmourabit.pdf)
