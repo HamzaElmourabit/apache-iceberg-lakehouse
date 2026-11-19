@@ -120,6 +120,37 @@ The project follows a **Medallion Lakehouse architecture** in which Apache Spark
   <i>End-to-end architecture: UCI Online Retail II → Spark → Bronze → Silver → Gold → Apache Iceberg → MinIO → Streamlit</i>
 </p>
 
+## 🖼️ Project Screenshots
+
+The following screenshots provide a visual overview of the project environment and its implementation.
+
+<p align="center">
+  <img src="images/Capture%20d'%C3%A9cran%202026-10-14%20221023.png" alt="Apache Iceberg project screenshot — October 14, 2026, 22:10" width="82%">
+</p>
+
+<p align="center">
+  <img src="images/Capture%20d'%C3%A9cran%202026-10-14%20221318.png" alt="Apache Iceberg project screenshot — October 14, 2026, 22:13" width="82%">
+</p>
+
+<p align="center">
+  <img src="images/Capture%20d'%C3%A9cran%202026-10-14%20230513.png" alt="Apache Iceberg project screenshot — October 14, 2026, 23:05" width="82%">
+</p>
+
+<p align="center">
+  <img src="images/Capture%20d'%C3%A9cran%202026-10-15%20100829.png" alt="Apache Iceberg project screenshot — October 15, 2026, 10:08" width="82%">
+</p>
+
+<p align="center">
+  <img src="images/architecture_lakehouse_iceberg_v3.png" alt="Apache Iceberg Lakehouse architecture" width="100%">
+</p>
+
+### 📄 Project documents
+
+- [View the project report (PDF)](images/Rapport_HamzaElmourabit.pdf)
+- [View the presentation (PDF)](images/Apache_Iceberg_Soutenance_HamzaElmourabit.pdf)
+
+
+
 # 🔧 Technology Stack
 
 | Technology                  | Role                                    |
